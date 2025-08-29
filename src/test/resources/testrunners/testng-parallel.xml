@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="OrangeHRM Parallel Test Suite" verbose="2" parallel="methods" thread-count="4" data-provider-thread-count="4">
+    
+    <!-- Test Suite Configuration for Parallel Execution -->
+    <parameter name="browser" value="chrome"/>
+    <parameter name="headless" value="true"/>
+    <parameter name="implicitWait" value="10"/>
+    <parameter name="pageLoadTimeout" value="30"/>
+    
+    <!-- Test Groups -->
+    <groups>
+        <run>
+            <include name="smoke"/>
+            <include name="regression"/>
+            <include name="login"/>
+            <include name="dashboard"/>
+            <include name="critical"/>
+            <include name="functional"/>
+        </run>
+    </groups>
+    
+    <!-- Parallel Test Suite: All Tests -->
+    <test name="Parallel Test Suite" description="All tests running in parallel for maximum speed">
+        <classes>
+            <class name="com.qa.orangehrm.tests.LoginTest"/>
+            <class name="com.qa.orangehrm.tests.DashboardTest"/>
+        </classes>
+    </test>
+    
+    <!-- Suite Configuration -->
+    <listeners>
+        <listener class-name="com.qa.orangehrm.listeners.ExtentReportListener"/>
+        <listener class-name="com.qa.orangehrm.listeners.TestNGListener"/>
+    </listeners>
+    
+</suite>

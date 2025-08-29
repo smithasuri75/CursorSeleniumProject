@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="OrangeHRM Regression Test Suite" verbose="2" parallel="methods" thread-count="3">
+    
+    <!-- Test Suite Configuration for Regression Tests -->
+    <parameter name="browser" value="chrome"/>
+    <parameter name="headless" value="false"/>
+    <parameter name="implicitWait" value="10"/>
+    <parameter name="pageLoadTimeout" value="30"/>
+    
+    <!-- Regression Test Groups - All Tests -->
+    <groups>
+        <run>
+            <include name="smoke"/>
+            <include name="regression"/>
+            <include name="login"/>
+            <include name="dashboard"/>
+            <include name="critical"/>
+            <include name="functional"/>
+        </run>
+    </groups>
+    
+    <!-- Regression Test Suite: All Login Tests -->
+    <test name="Regression Login Tests" description="Comprehensive login functionality tests">
+        <classes>
+            <class name="com.qa.orangehrm.tests.LoginTest">
+                <methods>
+                    <include name="testSuccessfulLogin" groups="smoke,login,critical"/>
+                    <include name="testLoginWithInvalidCredentials" groups="regression,login,functional"/>
+                    <include name="testLoginPageElements" groups="regression,login,functional"/>
+                    <include name="testLoginWithEmptyCredentials" groups="regression,login,functional"/>
+                    <include name="testLogout" groups="smoke,login,critical"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Regression Test Suite: All Dashboard Tests -->
+    <test name="Regression Dashboard Tests" description="Comprehensive dashboard functionality tests">
+        <classes>
+            <class name="com.qa.orangehrm.tests.DashboardTest">
+                <methods>
+                    <include name="testDashboardElementsDisplayed" groups="smoke,dashboard,critical"/>
+                    <include name="testDashboardNavigationMenus" groups="regression,dashboard,functional"/>
+                    <include name="testDashboardPageTitleAndUrl" groups="regression,dashboard,functional"/>
+                    <include name="testUserDropdown" groups="regression,dashboard,functional"/>
+                    <include name="testDashboardRefresh" groups="regression,dashboard,functional"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Suite Configuration -->
+    <listeners>
+        <listener class-name="com.qa.orangehrm.listeners.ExtentReportListener"/>
+        <listener class-name="com.qa.orangehrm.listeners.TestNGListener"/>
+    </listeners>
+    
+</suite>

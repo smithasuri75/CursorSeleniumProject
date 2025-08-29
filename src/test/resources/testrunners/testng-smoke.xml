@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="OrangeHRM Smoke Test Suite" verbose="2" parallel="methods" thread-count="1">
+    
+    <!-- Test Suite Configuration for Smoke Tests -->
+    <parameter name="browser" value="chrome"/>
+    <parameter name="headless" value="false"/>
+    <parameter name="implicitWait" value="10"/>
+    <parameter name="pageLoadTimeout" value="30"/>
+    
+    <!-- Smoke Test Groups - Only Critical Tests -->
+    <groups>
+        <run>
+            <include name="smoke"/>
+            <include name="critical"/>
+        </run>
+    </groups>
+    
+    <!-- Smoke Test Suite: Critical Login Tests -->
+    <test name="Smoke Login Tests" description="Critical login functionality tests">
+        <classes>
+            <class name="com.qa.orangehrm.tests.LoginTest">
+                <methods>
+                    <include name="testSuccessfulLogin" groups="smoke,critical"/>
+                    <include name="testLogout" groups="smoke,critical"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Smoke Test Suite: Critical Dashboard Tests -->
+    <test name="Smoke Dashboard Tests" description="Critical dashboard functionality tests">
+        <classes>
+            <class name="com.qa.orangehrm.tests.DashboardTest">
+                <methods>
+                    <include name="testDashboardElementsDisplayed" groups="smoke,critical"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Suite Configuration -->
+    <listeners>
+        <listener class-name="com.qa.orangehrm.listeners.ExtentReportListener"/>
+        <listener class-name="com.qa.orangehrm.listeners.TestNGListener"/>
+    </listeners>
+    
+</suite>
